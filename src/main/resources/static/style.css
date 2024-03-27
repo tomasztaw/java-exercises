@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.btn-home-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 10px;
+    margin: 40px;
+}
+
+.btn-home-container button {
+    padding: 20px 30px;
+    font-size: 16px;
+    background-color: #2d2da1;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-home-container button:hover {
+    background-color: #1e1e8d;
+    cursor: pointer;
+}
