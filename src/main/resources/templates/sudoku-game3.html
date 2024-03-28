@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Board</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 5px solid black;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        td:nth-child(3n),
+        td:nth-child(6n) {
+            border-right: 3px solid black;
+        }
+
+        tr:nth-child(3n) td,
+        tr:nth-child(6n) td {
+            border-bottom: 3px solid black;
+        }
+
+        button {
+            margin: 50px;
+            padding: 20px 50px;
+            font-size: 16px;
+            background-color: #2d2da1;
+            border-radius: 10px;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #1e1e8d;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>Sudoku Board</h1>
+    <table id="sudokuBoard">
+        <tbody>
+        <tr th:each="row, rowStat : ${sudokuBoard}">
+            <td th:each="cell, colStat : ${row}" th:text="${cell != 0 ? cell : ''}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button id="solveButton">solve</button>
+
+
+</div>
+
+<script>
+    <script th:inline="javascript">
+    document.getElementById('solveButton').addEventListener('click', function() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var solution = JSON.parse(xhr.responseText);
+                    updateSudokuBoard(solution);
+                } else {
+                    console.error('Error:', xhr.statusText);
+                }
+            }
+        };
+        xhr.open('GET', '/solveSudoku', true);
+        xhr.send();
+    });
+
+    function updateSudokuBoard(solution) {
+        var sudokuTable = document.getElementById('sudokuBoard');
+        var rows = sudokuTable.getElementsByTagName('tr');
+        for (var i = 0; i < 9; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            for (var j = 0; j < 9; j++) {
+                cells[j].textContent = solution[i][j];
+            }
+        }
+    }
+</script>
+</body>
+</html>

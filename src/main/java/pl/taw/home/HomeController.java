@@ -27,4 +27,9 @@ public class HomeController {
     public String lottery() {
         return "lottery";
     }
+
+    @GetMapping("/sudoku")
+    public String sudoku() {
+        return "sudoku";
+    }
 }

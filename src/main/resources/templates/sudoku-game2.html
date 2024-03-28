@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Board 2</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 5px solid black;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        td:nth-child(3n),
+        td:nth-child(6n) {
+            border-right: 3px solid black;
+        }
+
+        tr:nth-child(3n) td,
+        tr:nth-child(6n) td {
+            border-bottom: 3px solid black;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>Sudoku Board 2</h1>
+    <table id="sudokuBoard">
+        <tbody>
+        <tr th:each="row, rowStat : ${sudokuBoard}" id="row_${rowStat.index}">
+            <td th:each="cell, colStat : ${row}"
+                id="cell_${rowStat.index}_${colStat.index}"
+                onclick="cellClicked('${rowStat.index}', '${colStat.index}')"
+                oninput="cellChanged('${rowStat.index}', '${colStat.index}')"
+                contenteditable="true">
+                <span th:text="${cell != 0 ? cell : ''}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    // Click on Sudoku board
+    function cellClicked(row, col) {
+        var cell = document.getElementById("cell_" + row + "_" + col);
+        cell.focus();
+    }
+
+    // Change/put value
+    function cellChanged(row, col) {
+        var cell = document.getElementById("cell_" + row + "_" + col);
+        var value = cell.innerText.trim();
+        console.log("The value is (" + row + ", " + col + "): " + value);
+        // Tutaj możesz dodać własną logikę obsługi zmiany wartości, np. sprawdzenie poprawności wprowadzonej wartości
+    }
+</script>
+</body>
+</html>
