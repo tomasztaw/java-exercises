@@ -32,4 +32,9 @@ public class HomeController {
     public String sudoku() {
         return "sudoku";
     }
+
+    @GetMapping("/bowling")
+    public String bowling() {
+        return "bowling";
+    }
 }
