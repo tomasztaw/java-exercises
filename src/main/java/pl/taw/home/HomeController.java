@@ -9,6 +9,10 @@ package pl.taw.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import pl.taw.graphicEditor.GraphicEditor;
+
+import javax.swing.*;
 
 @Controller
 public class HomeController {
@@ -36,5 +40,16 @@ public class HomeController {
     @GetMapping("/bowling")
     public String bowling() {
         return "bowling";
+    }
+
+    @GetMapping("/graphic")
+    public String graphic() {
+        return "graphic";
+    }
+
+    @PostMapping("/startEditor")
+    public String startEditor() {
+        SwingUtilities.invokeLater(GraphicEditor::new);
+        return "redirect:/graphic";
     }
 }
