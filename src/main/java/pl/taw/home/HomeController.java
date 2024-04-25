@@ -52,4 +52,9 @@ public class HomeController {
         SwingUtilities.invokeLater(GraphicEditor::new);
         return "redirect:/graphic";
     }
+
+    @GetMapping("/scraper")
+    public String scraper() {
+        return "scraper";
+    }
 }

@@ -18,17 +18,21 @@ import java.util.List;
 @Service
 public class OtodomWebScraper {
 
-    private final String ulr = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie/dolnoslaskie/wroclaw/wroclaw/wroclaw?distanceRadius=5&limit=36&ownerTypeSingleSelect=ALL&priceMin=50000&priceMax=500000&by=DEFAULT&direction=DESC&viewType=listing";
+    private final String prefix = "https://www.otodom.pl";
+    private final String ulr = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie/dolnoslaskie/" +
+            "wroclaw/wroclaw/wroclaw?distanceRadius=5&limit=36&ownerTypeSingleSelect=ALL" +
+            "&priceMin=50000&priceMax=500000&by=DEFAULT&direction=DESC&viewType=listing";
 
-    public List<Offer> getOffers() throws IOException {
+//    public List<Offer> getOffers() throws IOException {
+    public List<String> getOffers() throws IOException {
         Document document = Jsoup.connect(ulr).get();
 
         Elements elements = document.getElementsByAttributeValue("data-cy", "listing-item-link");
         List<String> links = elements.stream()
-//                .flatMap(e -> e.getElementsByAttribute("listing-item").stream())
                 .map(e -> e.attr("href"))
                 .toList();
 
-        return null;
+//        return List.of();
+        return links;
     }
 }
